@@ -1,5 +1,5 @@
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>ENTER YOUR NAME:BASKARAN V</H3>
+<H3>ENTER YOUR REGISTER NO:212222230020</H3>
 <H3>EX. NO.1</H3>
 <H3>DATE</H3>
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
@@ -37,14 +37,54 @@ STEP 5:Normalizing the data<BR>
 STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
-TYPE YOUR CODE HERE
+```python
+import pandas as pd 
+import numpy as np
+import seaborn as sns 
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+
+df=pd.read_csv("/content/Churn_Modelling.csv")
+df
+
+df.isnull().sum()
+df.info()
+
+correlation=df.corr()
+plt.figure(figsize=(17,7))
+sns.heatmap(correlation,annot=True,cmap='coolwarm')
+plt.show()
+
+dropvalue=['RowNumber','Surname','CustomerId']
+df.drop(dropvalue,axis=1,inplace=True)
+df['Geography']=df['Geography'].astype('category')
+df['Gender']=df['Gender'].astype('category')
+df['Geography']=df['Geography'].cat.codes
+df['Gender']=df['Gender'].cat.codes
+
+x=df.iloc[:,:-1]
+y=df.iloc[:,-1]
+
+scaler=MinMaxScaler()
+df1=scaler.fit_transform(df)
+
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+
+print(x_train.shape)
+print(y_train.shape)
+print(x_test.shape)
+print(y_test.shape)
+```
 
 
 ## OUTPUT:
-SHOW YOUR OUTPUT HERE
 
+![image](https://github.com/Lavanyajoyce/Ex-1-NN/assets/118703522/5e130900-afbe-41ab-ac7c-125ff17076dc)
+![image](https://github.com/Lavanyajoyce/Ex-1-NN/assets/118703522/32f5ae0f-e735-4d7c-9c4a-bb74623ce7d1)
+![image](https://github.com/Lavanyajoyce/Ex-1-NN/assets/118703522/df62d3a2-d9b0-4af6-9fdf-8ab3524356cc)
+![image](https://github.com/Lavanyajoyce/Ex-1-NN/assets/118703522/b4911336-43ed-45ee-be29-de00954e9941)
+![image](https://github.com/Lavanyajoyce/Ex-1-NN/assets/118703522/a4e75bb7-8078-49cb-9f70-be1d0fb59d71)
 
 ## RESULT:
 Thus, Implementation of Data Preprocessing is done in python  using a data set downloaded from Kaggle.
-
-
